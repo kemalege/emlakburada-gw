@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: emlakburada-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: emlakburada-user-service
+          uri: lb://EMLAKBURADA-USER-SERVICE
+          predicates:
+            - Path=/api/v1/users/**
+        - id: emlakburada-service
+          uri: lb://EMLAKBURADA-SERVICE
+          predicates:
+            - Path=/api/v1/products/**,
+server:
+  port: 8080
+
