@@ -3,6 +3,18 @@ spring:
     name: emlakburada-gateway
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
         - id: emlakburada-user-service
           uri: lb://EMLAKBURADA-USER-SERVICE
@@ -12,6 +24,18 @@ spring:
           uri: lb://EMLAKBURADA-SERVICE
           predicates:
             - Path=/api/v1/products/**,
+        - id: emlakburada-ad-service
+          uri: lb://EMLAKBURADA-AD-SERVICE
+          predicates:
+            - Path=/api/v1/ads/**,
+        - id: emlakburada-package-service
+          uri: lb://EMLAKBURADA-PACKAGE-SERVICE
+          predicates:
+            - Path=/api/v1/packages/**,
+        - id: emlakburada-payment-service
+          uri: lb://EMLAKBURADA-PAYMENT-SERVICE
+          predicates:
+            - Path=/api/v1/pay/**,
 server:
   port: 8080
 
